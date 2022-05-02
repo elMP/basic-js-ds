@@ -9,8 +9,8 @@ const { Node } = require('../extensions/list-tree.js');
 class BinarySearchTree {
   constructor() {
     this.rootNode = null;
-    this.minValue = 1;
-    this.maxValue = 1;
+    this.minValue = null;
+    this.maxValue = null;
   }
 
 
@@ -28,8 +28,11 @@ class BinarySearchTree {
     if (this.maxValue < data)
       this.maxValue = data;
 
-    if (!this.rootNode)
+    if (!this.rootNode) {
       this.rootNode = new Node(data);
+      this.minValue = data;
+      this.maxValue = data;
+    }
     else {
       let newElement = new Node(data);
       this.addToTree(newElement, this.rootNode);
@@ -86,9 +89,44 @@ class BinarySearchTree {
         return null;
   }
 
-  remove(/* data */) {
+  remove(data) {
     //throw new NotImplementedError('Not implemented');
     // remove line with error and write your code here
+    let node = this.rootNode;
+    this.removeNode(node, data);
+    // while (node.right) {
+
+  }
+
+  removeNode(node, data) {
+    if (node.data < data) {
+      if (node.right.data === data) {
+        node.right = node.right.right;
+        //  break;
+      } else {
+        node = node.right;
+        this.removeNode(node, data);
+      }
+      // }
+    } else if (node.data > data) {
+      if (node.left.data === data) {
+        node.left = node.left.left;
+        //  break;
+      } else {
+        node = node.left;
+        this.removeNode(node, data);
+      }
+    } else {
+      let left = node.left;
+      while (left.right != null) {
+        left = left.right;
+      }
+      console.log("left", left)
+      left.right = node.right;
+
+      this.rootNode = node.left;
+      console.log("root", this.rootNode)
+    }
   }
 
   min() {
@@ -105,20 +143,27 @@ class BinarySearchTree {
 }
 
 
+/* 
+const tree = new BinarySearchTree();
 
-//const tree = new BinarySearchTree();
-/*
-tree.add(2);
-tree.add(7);
-tree.add(1);
-tree.add(8);
-tree.add(4);
-tree.add(32);
-tree.add(12);
+tree.add(9);
 tree.add(14);
+tree.add(2);
+tree.add(6);
+tree.add(128);
+tree.add(8);
+tree.add(31);
+tree.add(54);
+tree.add(1);
+tree.remove(14);
+tree.remove(8);
+tree.remove(9);
+console.log(tree.has(31), false);
+console.log(tree.has(54), false);
+console.log(tree.has(1), false); */
 
-console.log(tree.find(8))
-console.log(tree.find(32))  */
+//console.log(tree.find(8))
+//console.log(tree.find(32))
 module.exports = {
   BinarySearchTree
 };

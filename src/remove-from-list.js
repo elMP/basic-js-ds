@@ -24,19 +24,26 @@ class ListNode {
   }
 }
 
-let list = null;
+//let list = null;
 
 function removeKFromList(l, k) {
   //throw new NotImplementedError('Not implemented');
   // remove line with error and write your code here
   let list = l;
 
+
+
   while (list.next) {
+    console.log(l);
     if (list.value === k) {
       list.value = list.next.value;
       list.next = list.next.next;
+    } else {
+      if (list.next.value === k && !list.next.next) {
+        list.next = null;
+      } else
+        list = list.next;
     }
-    list = list.next;
   }
 
   return l;

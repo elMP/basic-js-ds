@@ -6,12 +6,13 @@ const { Node } = require('../extensions/list-tree.js');
 * Implement simple binary search tree according to task description
 * using Node from extensions
 */
-module.exports = class BinarySearchTree {
+class BinarySearchTree {
   constructor() {
     this.rootNode = null;
     this.minValue = 1;
     this.maxValue = 1;
   }
+
 
   root() {
     //throw new NotImplementedError('Not implemented');
@@ -101,8 +102,9 @@ module.exports = class BinarySearchTree {
     // remove line with error and write your code here
     return this.maxValue;
   }
-
 }
+
+
 
 //const tree = new BinarySearchTree();
 /*
@@ -117,3 +119,6 @@ tree.add(14);
 
 console.log(tree.find(8))
 console.log(tree.find(32))  */
+module.exports = {
+  BinarySearchTree
+};
